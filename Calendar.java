@@ -32,7 +32,10 @@ public class Calendar {
         }
 
         while (year < inputYear + 1) {
-            System.out.println(dayOfMonth + "/" + month + "/" + year);
+			System.out.print(dayOfMonth + "/" + month + "/" + year);
+			if (dayOfWeek==1 && dayOfMonth==1)
+				System.out.print(" Sunday");
+			System.out.println();
             advance();
         }
 	 	//// Write the necessary ending code here
