@@ -5,7 +5,7 @@ public class LoanCalc {
 	
 	static double epsilon = 0.001;  // The computation tolerance (estimation error)
 	static int iterationCounter;    // Monitors the efficiency of the calculation
-	
+
     /** 
      * Gets the loan data and computes the periodical payment.
      * Expects to get three command-line arguments: sum of the loan (double),
@@ -61,21 +61,19 @@ public class LoanCalc {
     	double H = loan/n;
 		double L = loan;
 		// First payment guess
-		double payment = (H+L)/2;
+		double g = (H+L)/2;
 		// Set the counter back to 0
 		iterationCounter = 0;
 		// run as long as the returned value exceeds 0
-		while (Math.abs(endBalance(loan, rate, n, payment)) >= epsilon) {
-			if (endBalance(loan, rate, n, payment) > 0) {
-				H = payment;
-			}
-			if (endBalance(loan, rate, n, payment) < 0) {
-				L = payment;
-			}
-			payment = (H+L)/2;
+		while ((L-H) >= epsilon) {
+			if (endBalance(loan, rate, n, g) > 0)
+				H = g;
+			else
+				L = g;
+			g = (H+L)/2;
 			iterationCounter++;
 		}
-    	return payment;
+    	return g;
     }
 	
 	/**
